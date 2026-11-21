@@ -12,6 +12,11 @@ without sending anything off the machine.
 > 中文一句话：把一台机器上多个编码 agent 的历史会话汇成一个可检索的本地库，查旧结论、
 > 看话题怎么变的、验前提是否已失效、并把可复用的操作程序挖出来。**不调模型、不联网。**
 
+![am cards validate --machine: a card whose premise no longer holds](docs/assets/premises-check.png)
+
+*Above: real output of `am cards validate --machine`. The claim is **kept**; the check fails;
+you are told to supersede it. A machine check reports, it never rewrites a conclusion on your behalf.*
+`
 ## Why another memory tool
 
 | | claude-mem / hosted memory | multiagent-memory |
