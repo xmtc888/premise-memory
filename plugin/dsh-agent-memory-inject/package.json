@@ -1,0 +1,21 @@
+{
+  "name": "@local/dsh-agent-memory-inject",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "description": "Inject agent-memory conclusion cards into DSH context as a system-prompt section",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./lib/block": "./lib/block.mjs"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test test/"
+  }
+}
