@@ -31,10 +31,28 @@ def entities_path() -> str:
     return LOCAL_ENTITIES if os.path.isfile(LOCAL_ENTITIES) else FIXTURE_ENTITIES
 
 
+def _safe_print(zh: str, en: str) -> None:
+    """打印中文，控制台编码不支持时退回英文。
+
+    2026-11-21 CI 实测：GitHub 的 Windows runner 默认 stdout 是 **cp1252**，
+    `print("载入实体表…")` 直接抛 UnicodeEncodeError，而这行在 `pytest_configure`
+    里 —— 等于**整轮 INTERNALERROR**、一条测试都没跑。本机控制台是 UTF-8，看不到。
+    """
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # type: ignore[attr-defined]
+    except (AttributeError, ValueError):
+        pass
+    try:
+        print(zh)
+    except UnicodeEncodeError:
+        print(en)
+
+
 def pytest_configure(config):
     path = entities_path()
     n = load_entities(path)
-    print("\n[conftest] 载入实体表: %d 个（%s）" % (n, path))
+    _safe_print("\n[conftest] 载入实体表: %d 个（%s）" % (n, path),
+                "\n[conftest] entities loaded: %d (%s)" % (n, path))
 
 
 @pytest.fixture(scope="session")
