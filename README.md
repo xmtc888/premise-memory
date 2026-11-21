@@ -1,7 +1,7 @@
-# multiagent-memory
+# premise-memory
 
 > 多 Agent 记忆库：把同一台机器上 6 个编码 agent 的会话汇成一个**可检索、可校验**的本地库。
-> 原名 `agent-memory`（技能包 slug 未改）。
+> 原名 `agent-memory`（技能包 slug 未改）；一度叫 `multiagent-memory`。
 
 Local, **zero-model** session memory for coding agents. It indexes the sessions that
 DSH, Codex, Claude Code, Hermes, WorkBuddy and CodeBuddy already keep on your machine,
@@ -19,7 +19,7 @@ you are told to supersede it. A machine check reports, it never rewrites a concl
 `
 ## Why another memory tool
 
-| | claude-mem / hosted memory | multiagent-memory |
+| | claude-mem / hosted memory | premise-memory |
 |---|---|---|
 | Retrieval | embeddings or LLM summarisation | **no model at all** — SQLite FTS5 (`unicode61` + `trigram`) with a LIKE fallback for 1–2 character CJK queries |
 | Data | often a hosted service | everything stays in `./index/*.db`; no network calls in the engine |
@@ -34,8 +34,8 @@ checkable premise — this is what it is built for.
 ## Quick start (Windows)
 
 ```powershell
-git clone <this-repo> multiagent-memory
-cd multiagent-memory
+git clone <this-repo> premise-memory
+cd premise-memory
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 
@@ -99,4 +99,8 @@ Design rules worth knowing:
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+**AGPL-3.0** — see [LICENSE](LICENSE).
+
+AGPL is deliberate: this tool reads your whole session history. If you run a modified
+version as a hosted service, users of that service are entitled to the source. Local
+private use costs you nothing extra.
